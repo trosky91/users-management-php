@@ -136,4 +136,42 @@ final class PedidoModel
     {
         return $this->propina;
     }
+
+    public function enviar(): void
+    {
+        if ($this->estado !== PedidoEstadoEnum::PENDIENTE) {
+            throw new InvalidArgumentException(
+                'Solo un pedido pendiente puede ser enviado.'
+            );
+        }
+
+        $this->estado = PedidoEstadoEnum::ENVIADO;
+        $this->fechaEnvio = new DateTimeImmutable();
+    }
+
+    public function entregar(): void
+    {
+        if ($this->estado !== PedidoEstadoEnum::ENVIADO) {
+            throw new InvalidArgumentException(
+            '   Solo un pedido enviado puede ser entregado.'
+            );
+        }
+
+        $this->estado = PedidoEstadoEnum::ENTREGADO;
+        $this->fechaEntrega = new DateTimeImmutable();
+    }
+
+    public function cancelar(): void
+    {
+        if (
+            $this->estado !== PedidoEstadoEnum::PENDIENTE &&
+            $this->estado !== PedidoEstadoEnum::ENVIADO
+        ) {
+            throw new InvalidArgumentException(
+                'Un pedido entregado o cancelado no puede ser cancelado.'
+            );
+     }
+
+        $this->estado = PedidoEstadoEnum::CANCELADO;
+    }
 }
