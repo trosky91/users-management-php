@@ -34,13 +34,12 @@ final class PedidoModel
         string $ciudad,
         string $nomenclaturaVivienda,
         PedidoPropina $propina,
-        ?DateTimeImmutable $fechaEnvio = null,
-        ?DateTimeImmutable $fechaEntrega = null
+        
     ) {
         $this->id = $id;
         $this->fecha = $fecha;
-        $this->fechaEnvio = $fechaEnvio;
-        $this->fechaEntrega = $fechaEntrega;
+        $this->fechaEnvio = null;
+        $this->fechaEntrega = null;
 
         $this->cliente = $this->validarTexto($cliente, 'cliente');
         $this->proveedor = $this->validarTexto($proveedor, 'proveedor');
@@ -57,6 +56,101 @@ final class PedidoModel
         );
 
         $this->propina = $propina;
+    }
+
+    public static function reconstituir(
+        PedidoId $id,
+        DateTimeImmutable $fecha,
+        string $cliente,
+        string $proveedor,
+        PedidoValor $valor,
+        string $pais,
+        string $departamento,
+        string $ciudad,
+        string $nomenclaturaVivienda,
+        PedidoPropina $propina,
+        PedidoEstadoEnum $estado,
+        ?DateTimeImmutable $fechaEnvio = null,
+        ?DateTimeImmutable $fechaEntrega = null
+    ): self {
+
+        self::validarEstadoYFechas(
+            $estado,
+            $fechaEnvio,
+            $fechaEntrega
+        );
+        $pedido = new self(
+            $id,
+            $fecha,
+            $cliente,
+            $proveedor,
+            $valor,
+            $pais,
+            $departamento,
+            $ciudad,
+            $nomenclaturaVivienda,
+            $propina,
+            
+        );
+
+
+        $pedido->estado = $estado;
+        $pedido->fechaEnvio = $fechaEnvio;
+        $pedido->fechaEntrega = $fechaEntrega;
+        
+
+        return $pedido;
+    }
+
+    private static function validarEstadoYFechas(
+        PedidoEstadoEnum $estado,
+        ?DateTimeImmutable $fechaEnvio,
+        ?DateTimeImmutable $fechaEntrega
+    ): void {
+
+        switch ($estado) {
+            case PedidoEstadoEnum::PENDIENTE:
+                if ($fechaEnvio !== null || $fechaEntrega !== null) {
+                    throw new InvalidArgumentException(
+                        'Un pedido pendiente no puede tener fechas de envío o entrega.'
+                    );
+                }
+                break;
+
+            case PedidoEstadoEnum::ENVIADO:
+                if ($fechaEnvio === null || $fechaEntrega !== null) {
+                    throw new InvalidArgumentException(
+                        'Un pedido enviado debe tener fecha de envío y no de entrega.'
+                    );
+                }
+                break;
+
+            case PedidoEstadoEnum::ENTREGADO:
+                if ($fechaEnvio === null || $fechaEntrega === null) {
+                    throw new InvalidArgumentException(
+                        'Un pedido entregado debe tener ambas fechas.'
+                    );
+                }
+                break;
+
+            case PedidoEstadoEnum::CANCELADO:
+                if ($fechaEntrega !== null) {
+                    throw new InvalidArgumentException(
+                        'Un pedido cancelado no puede tener fecha de entrega.'
+                    );
+                }
+                break;
+        }
+
+        if (
+            $fechaEnvio !== null &&
+            $fechaEntrega !== null &&
+            $fechaEntrega < $fechaEnvio
+        ) {
+            throw new InvalidArgumentException(
+                'La fecha de entrega no puede ser anterior a la fecha de envío.'
+            );
+        }
     }
 
     private function validarTexto(string $valor, string $campo): string
