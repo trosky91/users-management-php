@@ -137,6 +137,37 @@ final class PedidoModel
         return $this->propina;
     }
 
+
+    public function actualizarDatos(
+        DateTimeImmutable $fecha,
+        string $cliente,
+        string $proveedor,
+        PedidoValor $valor,
+        string $pais,
+        string $departamento,
+        string $ciudad,
+        string $nomenclaturaVivienda,
+        PedidoPropina $propina
+    ): void {
+        $this->fecha = $fecha;
+
+        $this->cliente = $this->validarTexto($cliente, 'cliente');
+        $this->proveedor = $this->validarTexto($proveedor, 'proveedor');
+
+        $this->valor = $valor;
+
+        $this->pais = $this->validarTexto($pais, 'país');
+        $this->departamento = $this->validarTexto($departamento, 'departamento');
+        $this->ciudad = $this->validarTexto($ciudad, 'ciudad');
+
+        $this->nomenclaturaVivienda = $this->validarTexto(
+            $nomenclaturaVivienda,
+            'nomenclatura de vivienda'
+        );
+
+        $this->propina = $propina;
+    }
+
     public function enviar(): void
     {
         if ($this->estado !== PedidoEstadoEnum::PENDIENTE) {
