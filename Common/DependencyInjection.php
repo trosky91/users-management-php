@@ -207,4 +207,14 @@ public static function getUpdatePedidoUseCase(): UpdatePedidoUseCase
     );
 }
 
+public static function getDeletePedidoUseCase(): DeletePedidoUseCase
+{
+    ClassLoader::loadClass('DeletePedidoService');
+
+    return new DeletePedidoService(
+        self::getPedidoRepository(),
+        self::getPedidoRepository()
+    );
+}
+
 }

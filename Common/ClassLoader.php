@@ -77,6 +77,8 @@ final class ClassLoader
         'GetPedidoByIdQuery' => 'Application/Services/Dto/Queries/GetPedidoByIdQuery.php',
         'UpdatePedidoService' => 'Application/Services/UpdatePedidoService.php',
         'UpdatePedidoCommand' => 'Application/Services/Dto/Commands/UpdatePedidoCommand.php',
+        'DeletePedidoService' => 'Application/Services/DeletePedidoService.php',
+        'DeletePedidoCommand' => 'Application/Services/Dto/Commands/DeletePedidoCommand.php',
 
         'CreateUserWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/CreateUserRequest.php',
         'UpdateUserWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/UpdateUserRequest.php',
