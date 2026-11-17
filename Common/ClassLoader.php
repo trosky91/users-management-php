@@ -8,6 +8,49 @@ final class ClassLoader
      * @var array<string, string>
      */
     private static array $classMap = array(
+
+        // Excepciones de Pedido
+        'InvalidPedidoIdException' => 'Domain/Exceptions/InvalidPedidoIdException.php',
+        'InvalidPedidoValorException' => 'Domain/Exceptions/InvalidPedidoValorException.php',
+        'InvalidPedidoPropinaException' => 'Domain/Exceptions/InvalidPedidoPropinaException.php',
+        'PedidoNotFoundException' => 'Domain/Exceptions/PedidoNotFoundException.php',
+
+        // Dominio de Pedido
+        'PedidoId' => 'Domain/ValueObjects/PedidoId.php',
+        'PedidoValor' => 'Domain/ValueObjects/PedidoValor.php',
+        'PedidoPropina' => 'Domain/ValueObjects/PedidoPropina.php',
+        'PedidoEstadoEnum' => 'Domain/Enums/PedidoEstadoEnum.php',
+        'PedidoModel' => 'Domain/Models/PedidoModel.php',
+
+        // Puertos de entrada
+        'CreatePedidoUseCase' => 'Application/Ports/In/CreatePedidoUseCase.php',
+        'UpdatePedidoUseCase' => 'Application/Ports/In/UpdatePedidoUseCase.php',
+        'GetPedidoByIdUseCase' => 'Application/Ports/In/GetPedidoByIdUseCase.php',
+        'GetAllPedidosUseCase' => 'Application/Ports/In/GetAllPedidosUseCase.php',
+        'DeletePedidoUseCase' => 'Application/Ports/In/DeletePedidoUseCase.php',
+
+        // Puertos de salida
+        'SavePedidoPort' => 'Application/Ports/Out/SavePedidoPort.php',
+        'UpdatePedidoPort' => 'Application/Ports/Out/UpdatePedidoPort.php',
+        'GetPedidoByIdPort' => 'Application/Ports/Out/GetPedidoByIdPort.php',
+        'GetAllPedidosPort' => 'Application/Ports/Out/GetAllPedidosPort.php',
+        'DeletePedidoPort' => 'Application/Ports/Out/DeletePedidoPort.php',
+
+        // DTO de aplicación
+        'CreatePedidoCommand' => 'Application/Services/Dto/Commands/CreatePedidoCommand.php',
+        'GetAllPedidosQuery' => 'Application/Services/Dto/Queries/GetAllPedidosQuery.php',
+
+        // Servicios de aplicación
+        'GetAllPedidosService' => 'Application/Services/GetAllPedidosService.php',
+
+        // Componentes de la capa Web
+        'CreatePedidoWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/CreatePedidoRequest.php',
+        'UpdatePedidoWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/UpdatePedidoRequest.php',
+        'PedidoResponse' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/PedidoResponse.php',
+        'PedidoWebMapper' => 'Infrastructure/Entrypoints/Web/Controllers/Mapper/PedidoWebMapper.php',
+        'PedidoController' => 'Infrastructure/Entrypoints/Web/Controllers/PedidoController.php',
+
+
         'InvalidUserEmailException' => 'Domain/Exceptions/InvalidUserEmailException.php',
         'InvalidUserIdException' => 'Domain/Exceptions/InvalidUserIdException.php',
         'InvalidUserNameException' => 'Domain/Exceptions/InvalidUserNameException.php',

@@ -217,4 +217,36 @@ public static function getDeletePedidoUseCase(): DeletePedidoUseCase
     );
 }
 
+
+public static function getGetAllPedidosUseCase(): GetAllPedidosUseCase
+{
+    ClassLoader::loadClass('GetAllPedidosService');
+
+    return new GetAllPedidosService(
+        self::getPedidoRepository()
+    );
+}
+
+public static function getPedidoWebMapper(): PedidoWebMapper
+{
+    ClassLoader::loadClass('PedidoWebMapper');
+
+    return new PedidoWebMapper();
+}
+
+public static function getPedidoController(): PedidoController
+{
+    ClassLoader::loadClass('PedidoController');
+
+    return new PedidoController(
+        self::getCreatePedidoUseCase(),
+        self::getUpdatePedidoUseCase(),
+        self::getPedidoByIdUseCase(),
+        self::getGetAllPedidosUseCase(),
+        self::getDeletePedidoUseCase(),
+        self::getPedidoWebMapper()
+    );
+}
+
+
 }
