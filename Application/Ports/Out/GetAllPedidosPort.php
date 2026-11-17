@@ -9,5 +9,9 @@ interface GetAllPedidosPort
     /**
      * @return PedidoModel[]
      */
-    public function getAll(): array;
+    public function getAll(
+        ?string $search = null,
+        int $page = 1,
+        int $limit = 10
+    ): array;
 }

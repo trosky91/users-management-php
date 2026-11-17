@@ -19,8 +19,14 @@ final class GetAllPedidosService implements GetAllPedidosUseCase
     /**
      * @return PedidoModel[]
      */
+
     public function execute(GetAllPedidosQuery $query): array
-    {
-        return $this->getAllPedidosPort->getAll();
-    }
+        {
+            return $this->getAllPedidosPort->getAll(
+                $query->search(),
+                $query->page(),
+                $query->limit()
+            );
+        }
+
 }

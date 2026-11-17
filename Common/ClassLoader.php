@@ -68,6 +68,16 @@ final class ClassLoader
         'UserPersistenceMapper' => 'Infrastructure/Adapters/Persistence/MySQL/Mapper/UserPersistenceMapper.php',
         'UserRepositoryMySQL' => 'Infrastructure/Adapters/Persistence/MySQL/Repository/UserRepositoryMySQL.php',
 
+        'PedidoPersistenceDto' => 'Infrastructure/Adapters/Persistence/MySQL/Dto/PedidoPersistenceDto.php',
+        'PedidoEntity' => 'Infrastructure/Adapters/Persistence/MySQL/Entity/PedidoEntity.php',
+        'PedidoPersistenceMapper' => 'Infrastructure/Adapters/Persistence/MySQL/Mapper/PedidoPersistenceMapper.php',
+        'PedidoRepositoryMySQL' => 'Infrastructure/Adapters/Persistence/MySQL/Repository/PedidoRepositoryMySQL.php',
+        'CreatePedidoService' => 'Application/Services/CreatePedidoService.php',
+        'GetPedidoByIdService' => 'Application/Services/GetPedidoByIdService.php',
+        'GetPedidoByIdQuery' => 'Application/Services/Dto/Queries/GetPedidoByIdQuery.php',
+        'UpdatePedidoService' => 'Application/Services/UpdatePedidoService.php',
+        'UpdatePedidoCommand' => 'Application/Services/Dto/Commands/UpdatePedidoCommand.php',
+
         'CreateUserWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/CreateUserRequest.php',
         'UpdateUserWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/UpdateUserRequest.php',
         'LoginWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/LoginWebRequest.php',

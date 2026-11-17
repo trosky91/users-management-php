@@ -11,6 +11,7 @@ final class DependencyInjection
     {
         EnvLoader::load(dirname(__DIR__) . '/.env');
         ClassLoader::register();
+        
     }
 
     public static function getConnection(): Connection
@@ -156,4 +157,54 @@ final class DependencyInjection
             self::getUserRepository()
         );
     }
+
+    
+    public static function getPedidoPersistenceMapper(): PedidoPersistenceMapper
+    {
+        ClassLoader::loadClass('PedidoPersistenceMapper');
+
+        return new PedidoPersistenceMapper();
+    }
+
+    /**
+     * Construye el repositorio MySQL de Pedidos.
+     */
+    public static function getPedidoRepository(): PedidoRepositoryMySQL
+    {
+        ClassLoader::loadClass('PedidoRepositoryMySQL');
+
+        return new PedidoRepositoryMySQL(
+            self::getPdo(),
+            self::getPedidoPersistenceMapper()
+        );
+    }
+
+    public static function getCreatePedidoUseCase(): CreatePedidoUseCase
+{
+    ClassLoader::loadClass('CreatePedidoService');
+
+    return new CreatePedidoService(
+        self::getPedidoRepository()
+    );
+}
+
+public static function getPedidoByIdUseCase(): GetPedidoByIdUseCase
+{
+    ClassLoader::loadClass('GetPedidoByIdService');
+
+    return new GetPedidoByIdService(
+        self::getPedidoRepository()
+    );
+}
+
+public static function getUpdatePedidoUseCase(): UpdatePedidoUseCase
+{
+    ClassLoader::loadClass('UpdatePedidoService');
+
+    return new UpdatePedidoService(
+        self::getPedidoRepository(),
+        self::getPedidoRepository()
+    );
+}
+
 }
